@@ -8,17 +8,19 @@ import (
 // timeCache stores a pointer to a time instance
 // that is accurate to about one second.
 type timeCache struct {
-	p atomic.Pointer[realTime.Time]
 }
 
-func (tc *timeCache) Now() realTime.Time {
-	return *tc.p.Load()
+
+var p atomic.Pointer[realTime.Time]
+
+func (tc timeCache) Now() realTime.Time {
+	return *p.Load()
 }
 
 var tc = func() (tc timeCache) {
 	refresh := func() {
 		n := realTime.Now()
-		tc.p.Store(&n)
+		p.Store(&n)
 	}
 
 	refresher := func() {
