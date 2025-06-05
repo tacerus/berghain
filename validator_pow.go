@@ -81,7 +81,9 @@ func (powValidator) onNew(b *Berghain, req *ValidatorRequest, resp *ValidatorRes
 func (powValidator) isValid(b *Berghain, req *ValidatorRequest, resp *ValidatorResponse) error {
 	// req.Body should look like this:
 	// NCUEKLGC-5d2702c936458bf9b962617673f0825ee3b51a84a42fc9f591d8c67516442a2f-61764
+	fmt.Printf("req body \"%s\"\n", string(req.Body))
 	if len(req.Body) <= validatorPOWMinSolutionLength {
+		fmt.Printf("len pow %d\n", len(req.Body))
 		// invalid solution data
 		return ErrInvalidLength
 	}

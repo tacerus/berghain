@@ -148,6 +148,7 @@ func (b *Berghain) IsValidCookie(ri RequestIdentifier, cookie []byte) error {
 	}
 
 	if lc != encodedCookieSize {
+		fmt.Printf("len cookie %d\n", lc)
 		return ErrInvalidLength
 	}
 

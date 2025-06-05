@@ -219,6 +219,10 @@ func (f *frontend) HandleSPOEChallenge(ctx context.Context, w *encoding.ActionWr
 
 	_ = w.SetStringBytes(encoding.VarScopeTransaction, "response", resp.Body.ReadBytes())
 	if resp.Token.Len() > 0 {
-		_ = w.SetStringBytes(encoding.VarScopeTransaction, "token", resp.Token.ReadBytes())
+		tk := resp.Token.ReadBytes()
+		slog.DebugContext(ctx, "returning token", "token", string(tk))
+		_ = w.SetStringBytes(encoding.VarScopeTransaction, "token", tk)
+	} else {
+		slog.DebugContext(ctx, "not returning token")
 	}
 }

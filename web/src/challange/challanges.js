@@ -22,9 +22,12 @@ async function challengePOW(challenge){
         }
     }
 
+    const body = challenge.r + "-" + challenge.s + "-" + i.toString();
+    console.log(`Returning body: ${body}`);
+
     try {
         const response = await fetch("/cdn-cgi/challenge-platform/challenge", {
-            body: challenge.r + "-" + challenge.s + "-" + i.toString(),
+            body: body,
             headers: {
                 "Content-Type": "text/plain",
             },
